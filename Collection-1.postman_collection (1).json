@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "fa09e408-c90b-477e-91fe-21dd5ba16547",
+		"name": "Collection-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18992503",
+		"_collection_link": "https://solar-star-569228.postman.co/workspace/assignement~69488cc3-3bee-4779-9454-cb32bdd4da99/collection/18992503-fa09e408-c90b-477e-91fe-21dd5ba16547?action=share&source=collection_link&creator=18992503"
+	},
+	"item": [
+		{
+			"name": "Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test Case: Validate Response Status for Valid Request\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test Case: Validate Response Time\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"// Test Case: Validate Response Structure for Valid Request\r",
+							"pm.test(\"Response structure is correct\", function() {\r",
+							"    // Parse the response body as JSON\r",
+							"    let jsonData = pm.response.json();\r",
+							"    jsonData.forEach((user) => {\r",
+							"        pm.expect(user).to.have.property(\"id\");\r",
+							"        pm.expect(user).to.have.property(\"name\");\r",
+							"        pm.expect(user).to.have.property(\"email\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Test Case: Validate Data Correctness for a Specific User\r",
+							"pm.test(\"Data correctness for user ID 1\", function() {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Leanne Graham\");\r",
+							"});\r",
+							"\r",
+							"// Test Case: Validate Response Headers\r",
+							"pm.test(\"Content-Type is application/json\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"// Test Case: Validate Response for Non-Existent User\r",
+							"pm.test(\"Status code is 404 for non-existent user\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
